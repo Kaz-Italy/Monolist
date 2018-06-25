@@ -18,8 +18,11 @@ class WelcomeController extends Controller
     public function index()
     {
         $items = Item::orderBy('updated_at', 'desc')->paginate(20);
+        $destinction = '';
+        
         return view('welcome', [
             'items' => $items,
+            'destinction'=> $destinction,
         ]);
     }
 }

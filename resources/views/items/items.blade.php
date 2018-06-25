@@ -15,15 +15,27 @@
                             @endif
                             <div class="buttons text-center">
                                 @if (Auth::check())
-                                    @include('items.want_button', ['item' => $item])
-                                    @include('items.have_button', ['item' => $item])
+                                    @if($destinction == "")
+                                        @include('items.want_button', ['item' => $item])
+                                        @include('items.have_button', ['item' => $item])
+                                    @elseif($destinction == "want")
+                                        @include('items.want_button', ['item' => $item])
+                                    @else
+                                        @include('items.have_button', ['item' => $item])
+                                    @endif
                                 @endif
                             </div>
                         </div>
                         @if (isset($item->count))
                             <div class="panel-footer">
-                                <p class="text-center">{{ $key+1 }}位: {{ $item->count}} Wants</p>
-                                <p class="text-center">{{ $key+1 }}位: {{ $item->count}} Haves</p>
+                                @if($destinction == "")
+                                        @include('items.want_button', ['item' => $item])
+                                        @include('items.have_button', ['item' => $item])
+                                @elseif($destinction == "want")
+                                    <p class="text-center">{{ $key+1 }}位: {{ $item->count}} Wants</p>
+                                @else
+                                    <p class="text-center">{{ $key+1 }}位: {{ $item->count}} Haves</p>
+                                @endif
                             </div>
                         @endif
                     </div>
